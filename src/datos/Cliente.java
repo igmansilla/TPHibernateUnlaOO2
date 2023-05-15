@@ -5,6 +5,7 @@ import java.util.Set;
 
 //import funciones.Funciones;
 public class Cliente {
+	
 	private long idCliente;
 	private String apellido;
 	private String nombre;

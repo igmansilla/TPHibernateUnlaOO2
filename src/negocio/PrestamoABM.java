@@ -27,7 +27,7 @@ public class PrestamoABM {
 		return dao.traer(c);
 	}
 
-	public int Alta(Prestamo prestamo) {
+	public int altaPrestamo(Prestamo prestamo) {
 		return dao.agregar(prestamo);
 	}
 
@@ -46,7 +46,7 @@ public class PrestamoABM {
 	// Puede que la logica de la amortizacion este mal.
 	public int altaPrestamoConCuotas(Prestamo prestamo) throws Exception {
 		/*--------------------Doy de alta el nuevo prestamo y lo trago para guardarlo en una variable----------------*/
-		long idPrestamoGenerado = this.Alta(prestamo);
+		long idPrestamoGenerado = this.altaPrestamo(prestamo);
 		Prestamo p = this.traerPrestamo(idPrestamoGenerado);
 
 		/*-------------------Creo variables que voy a necesitar para el calculo de amortizacion----------------------*/
@@ -58,7 +58,7 @@ public class PrestamoABM {
 		int n = cantidadDeCuotas;
 
 		/*-------------------------IMPORTANTE: Creo un set que va a ser mi lista de cutoas----------------------------*/
-		Set<Cuota> lstCuotas = new HashSet<Cuota>();
+		Set<Cuota> lstCuotas = new HashSet<>();
 
 		/*---------Con este for lo que hago es e llenar ese set y para cada cuota le aplico la regla del negocio------*/
 		for (int i = 0; i < cantidadDeCuotas; i++) {
@@ -69,7 +69,7 @@ public class PrestamoABM {
 			saldoPendiente = saldoPendiente - amortizacion;
 		}
 
-		/*------------Al prestamo que me traje de la bd le seteo el el set de cuotas y despues lo modifico-------------*/
+		/*------------Al prestamo que me traje de la bd le seteo el set de cuotas y despues lo modifico-------------*/
 
 		p.setCuotas(lstCuotas);
 		this.Modificar(p);
